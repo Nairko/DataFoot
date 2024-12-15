@@ -14,9 +14,9 @@ df_players_stats_ligue1,df_teams_ligue1,df_player_stats_per90_liga,df_teams_liga
 def get_logo_path(squad_name,ligue_select):
     # Remplacez ce chemin par le chemin où vous stockez vos logos
     if ligue_select == 'Ligue1':
-        return f"./image/{squad_name}.png" 
+        return f"image/{squad_name}.png" 
     else:
-        return f"./image_liga/{squad_name}.png" 
+        return f"image_liga/{squad_name}.png" 
 
 
 def plot_with_logos(x, y, names, ax,ligue_select):

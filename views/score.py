@@ -86,5 +86,9 @@ def createPage():
     elif League_to_show == "Ligue1":
         df = df_players_stats_ligue1.copy()
     data = standardize_data(weights,df)
-    st.dataframe(data)
+    # Trier les données par la colonne 'Performance Index' (ordre décroissant, par exemple)
+    sorted_data = data[['PlayerName', 'Team', 'Pos', 'Performance Index']].sort_values(by='Performance Index', ascending=False)
+
+    # Afficher le DataFrame trié dans Streamlit
+    st.dataframe(sorted_data)
     return True

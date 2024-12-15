@@ -14,12 +14,13 @@ from views.PizzaPlot import createPage as createPizzaPage
 from views.home import createPage as createHomePage
 from views.Scout import createPage as createScoutPage
 from views.score import createPage as createScorePage
+from views.PassingMap import createPage as createPassingMapPage
 from data_loader import load_data
 #import streamlit_authenticator as stauth
 
 
 df_players_stats_ligue1,df_teams_ligue1,df_player_stats_per90_liga,df_teams_liga = load_data()
-v_menu=["Home", "PizzaPlot🕸️", "Scout🔎", "Score"]
+v_menu=["Home", "PizzaPlot🕸️", "Scout🔎", "Score", "PassingMap"]
 
 with st.sidebar:
 
@@ -45,5 +46,7 @@ if selected=="Scout🔎":
 if selected=="Score":
     createScorePage()
 
+if selected=="PassingMap":
+    createPassingMapPage()
 
 
