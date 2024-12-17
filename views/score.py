@@ -4,7 +4,7 @@ from data_loader import load_data
 
 from sklearn.preprocessing import StandardScaler
 
-df_players_stats_ligue1,df_teams_ligue1,df_player_stats_per90_liga,df_teams_liga = load_data()
+df_players_stats_ligue1,df_teams_ligue1,df_player_stats_per90_liga,df_teams_liga,df_big5 = load_data()
 
 def get_weights():
     raw_weights= {

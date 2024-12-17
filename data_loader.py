@@ -27,6 +27,9 @@ def load_data():
     query4 = "SELECT * FROM liga_stats order by `Rank`"
     df_teams_liga = pd.read_sql(query4, conn)
 
+    query5 = "SELECT * FROM player_2025_big5"
+    df_big5 = pd.read_sql(query5, conn)
+
     # Fermer la connexion
     conn.close()
-    return df_players_stats_ligue1, df_teams_ligue1, df_player_stats_per90_liga, df_teams_liga
+    return df_players_stats_ligue1, df_teams_ligue1, df_player_stats_per90_liga, df_teams_liga,df_big5

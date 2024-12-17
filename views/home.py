@@ -9,7 +9,7 @@ from PIL import Image
 from mplsoccer import PyPizza, add_image, FontManager
 from urllib.request import urlopen
 
-df_players_stats_ligue1,df_teams_ligue1,df_player_stats_per90_liga,df_teams_liga = load_data()
+df_players_stats_ligue1,df_teams_ligue1,df_player_stats_per90_liga,df_teams_liga,df_big5 = load_data()
 
 def get_logo_path(squad_name,ligue_select):
     # Remplacez ce chemin par le chemin où vous stockez vos logos
@@ -32,10 +32,10 @@ def plot_with_logos(x, y, names, ax,ligue_select):
 def createPage():
     st.write("""# Welcome to the hub of soccer data""")
     dfligue = pd.DataFrame({'Ligue to show':["Liga","Ligue1"]})
-    ligue_select = st.selectbox("Choix de la ligue a afficher :",dfligue['Ligue to show'],index=None)
+    ligue_select = st.selectbox("Choose the graph to display :",dfligue['Ligue to show'],index=None)
 
     dfselect = pd.DataFrame({'choix':["GF & GA"]})
-    graph_select = st.selectbox("Choix du graph a afficher:",dfselect['choix'],index=None)
+    graph_select = st.selectbox("Choose the graph to display :",dfselect['choix'],index=None)
 
     # Créer des colonnes pour afficher les graphiques côte à côte
     col1, col2 = st.columns(2)
@@ -152,11 +152,11 @@ def createPage():
 
      
     if ligue_select == 'Ligue1':
-        posl1 = st.selectbox("Choix du poste a afficher :",df_players_stats_ligue1['Pos'].unique(),index=None)
-        ages = st.selectbox("Choix de l'age inferieur à afficher :",df_players_stats_ligue1['Age'].sort_values().unique(),index=None)
+        posl1 = st.selectbox("Choose the position of the players to display :",df_players_stats_ligue1['Pos'].unique(),index=None)
+        ages = st.selectbox("Maximum age of the players :",df_players_stats_ligue1['Age'].sort_values().unique(),index=None)
     elif ligue_select == 'Liga':
-        pos = st.selectbox("Choix du poste a afficher :",df_player_stats_per90_liga['Pos'].unique(),index=None)
-        ages = st.selectbox("Choix de l'age inferieur à afficher :",df_player_stats_per90_liga['Age'].sort_values().unique(),index=None)
+        pos = st.selectbox("Choose the position of the players to display :",df_player_stats_per90_liga['Pos'].unique(),index=None)
+        ages = st.selectbox("Maximum age of the players :",df_player_stats_per90_liga['Age'].sort_values().unique(),index=None)
         if ages == None:
             ages=50
         

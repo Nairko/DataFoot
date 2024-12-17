@@ -7,7 +7,7 @@ from matplotlib.offsetbox import OffsetImage, AnnotationBbox
 import matplotlib.image as mpimg
 from sklearn.preprocessing import StandardScaler
 
-df_players_stats_ligue1,df_teams_ligue1,df_player_stats_per90_liga,df_teams_liga = load_data()
+df_players_stats_ligue1,df_teams_ligue1,df_player_stats_per90_liga,df_teams_liga,df_big5 = load_data()
 def get_weights():
     return {
         'CB': {'Non_Penalty_Goals': 0.1, 'npxG_Non_Penalty_xG': 0.1, 'Shots_Total': 0.2, 'Assists': 0.2,

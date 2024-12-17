@@ -11,7 +11,7 @@ import mysql.connector
 from data_loader import load_data
 
 
-df_players_stats_ligue1,df_teams_ligue1,df_player_stats_per90_liga,df_teams_liga = load_data()
+df_players_stats_ligue1,df_teams_ligue1,df_player_stats_per90_liga,df_teams_liga,df_big5 = load_data()
 
 
 
@@ -153,7 +153,7 @@ def createPage():
             'Progressive_Carries','Successful_Take_Ons','Touches_Att_Pen','Progressive_Passes_Rec',
             'Tackles','Interceptions','Blocks','Clearances','Aerials_Won'
         ]
-    params = st.multiselect("Choose the stats you whant to show",[
+    params = st.multiselect("Choose the stats you want to show",[
             '90s','Non_Penalty_Goals','npxG_Non_Penalty_xG','Shots_Total','Assists','xAG_Exp_Assisted_Goals',
             'Shot_Creating_Actions','Passes_Attempted','Pass_Completion_Percentage','Progressive_Passes',
             'Progressive_Carries','Successful_Take_Ons','Touches_Att_Pen','Progressive_Passes_Rec',
