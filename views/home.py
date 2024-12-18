@@ -31,6 +31,22 @@ def plot_with_logos(x, y, names, ax,ligue_select):
 
 def createPage():
     st.write("""# Welcome to the hub of soccer data""")
+    st.markdown("**The site is in BETA.**")
+    st.markdown("**Here are the different menus:**")
+    multi = """
+    **GraphPlot📈:** You will find a scatter plot representing players' performance based on certain statistics that you can select. The stats correspond to those of the domestic leagues in the 5 major championships.
+
+    **PizzaPlot🕸️:** Displays percentile statistics in a radar chart. You can choose different stats to display as well as the player's role. Available only in 2 leagues (La Liga and Ligue 1).
+
+    **Scout🔎:** Enter the name of the player you want to scout; it will provide you with their weaknesses and complementary players. Available only in 2 leagues (La Liga and Ligue 1).
+
+    **Score🥇:** Players' scores in their league (under development). Available only in 2 leagues (La Liga and Ligue 1).
+
+    **PassingMap⚽️:** Displays passes and players' average positioning during the Strasbourg - Reims match.
+    """
+    st.markdown(multi)
+
+    st.markdown("**You can try a Squad graph plot here:**")
     dfligue = pd.DataFrame({'Ligue to show':["Liga","Ligue1"]})
     ligue_select = st.selectbox("Choose the graph to display :",dfligue['Ligue to show'],index=None)
 
@@ -43,8 +59,8 @@ def createPage():
     if ligue_select == 'Ligue1':
         if graph_select == "GF & GA":
             #courbe xG vs xGA
-            x2 = df_teams_ligue1['xG']/12
-            y2 = df_teams_ligue1['xGA']/12
+            x2 = df_teams_ligue1['xG']/df_teams_ligue1['MP'].iloc[0]
+            y2 = df_teams_ligue1['xGA']/df_teams_ligue1['MP'].iloc[0]
             name = df_teams_ligue1['TeamName'] 
             # plot
             fig, ax = plt.subplots(figsize=(10,10))
@@ -97,8 +113,8 @@ def createPage():
     elif ligue_select == 'Liga':
         if graph_select == "GF & GA":
             #courbe xG vs xGA
-            x2 = df_teams_liga['xG']/12
-            y2 = df_teams_liga['xGA']/12
+            x2 = df_teams_liga['xG']/df_teams_liga['MP'].iloc[0]
+            y2 = df_teams_liga['xGA']/df_teams_liga['MP'].iloc[0]
             name = df_teams_liga['TeamName'] 
             # plot
             fig, ax = plt.subplots(figsize=(10,10))
@@ -150,149 +166,5 @@ def createPage():
                 st.pyplot(fig)
 
 
-     
-    if ligue_select == 'Ligue1':
-        posl1 = st.selectbox("Choose the position of the players to display :",df_players_stats_ligue1['Pos'].unique(),index=None)
-        ages = st.selectbox("Maximum age of the players :",df_players_stats_ligue1['Age'].sort_values().unique(),index=None)
-    elif ligue_select == 'Liga':
-        pos = st.selectbox("Choose the position of the players to display :",df_player_stats_per90_liga['Pos'].unique(),index=None)
-        ages = st.selectbox("Maximum age of the players :",df_player_stats_per90_liga['Age'].sort_values().unique(),index=None)
-        if ages == None:
-            ages=50
-        
-
-    col3, col4 = st.columns(2)
-    if ligue_select == 'Ligue1':
-        if posl1 == "FW" or posl1 == "AM" or posl1 == "FB" or posl1 == "MF" or posl1 == "CB":
-            dfposte = df_players_stats_ligue1[(df_players_stats_ligue1['Pos'].str.contains(posl1))& (df_players_stats_ligue1['Age']<=ages)]
-            goals = dfposte['Non_Penalty_Goals']
-            xG = dfposte['npxG_Non_Penalty_xG']
-            playername = dfposte['PlayerName']
-
-            # plot
-            fig, ax = plt.subplots(figsize=(10,10))
-
-            # Scatter plot
-            sc2 = ax.scatter(xG, goals, color='grey')  # use a neutral color for points
-
-            # Calculate mean values
-            moyennegoals = goals.mean()
-            moyennexG = xG.mean()
-
-            x3_line = np.linspace(min(xG.min(), goals.min()), max(xG.max(), goals.max()), 100)
-            ax.plot(x3_line, x3_line, label='y = x', color='black')  # Line plot y=x
-
-            # Add mean lines
-            ax.axvline(x=moyennexG, color='red', linestyle='--')  # Vertical line at mean xG
-            ax.axhline(y=moyennegoals, color='blue', linestyle='--')  # Horizontal line at mean xGA
-
-            # Annotate each point
-            for i, txt in enumerate(playername):
-                ax.annotate(txt, (xG.iloc[i], goals.iloc[i]))
-
-            # Set labels and legend
-            ax.set_xlabel('xG')
-            ax.set_ylabel('Goals')
-            ax.set_title('Visualisation de la sur ou sous-performance des Joueurs ayant joué au moins 400min (But marque(per90) VS xG(per90))')
-            with col3:
-                st.pyplot(fig)
-
-            assists = dfposte['Assists']
-            xGA = dfposte['xAG_Exp_Assisted_Goals']
-            playername = dfposte['PlayerName']
-
-            # plot
-            fig, ax = plt.subplots(figsize=(10,10))
-
-            # Scatter plot
-            sc2 = ax.scatter(xGA, assists, color='grey')  # use a neutral color for points
-
-            # Calculate mean values
-            moyennegoals = assists.mean()
-            moyennexG = xGA.mean()
-
-            x3_line = np.linspace(min(xGA.min(), assists.min()), max(xGA.max(), assists.max()), 100)
-            ax.plot(x3_line, x3_line, label='y = x', color='black')  # Line plot y=x
-
-            # Add mean lines
-            ax.axvline(x=moyennexG, color='red', linestyle='--')  # Vertical line at mean xG
-            ax.axhline(y=moyennegoals, color='blue', linestyle='--')  # Horizontal line at mean xGA
-
-            # Annotate each point
-            for i, txt in enumerate(playername):
-                ax.annotate(txt, (xGA.iloc[i], assists.iloc[i]))
-
-            # Set labels and legend
-            ax.set_xlabel('xAG')
-            ax.set_ylabel('assists')
-            ax.set_title('Visualisation de la sur ou sous-performance des Joueurs ayant joué au moins 400min (Assists(per90) VS xAG(per90))')
-            with col4:
-                st.pyplot(fig)
-    elif ligue_select == 'Liga':
-        if pos == "FW" or pos == "AM" or pos == "FB" or pos == "MF" or pos == "CB":
-            dfposte = df_player_stats_per90_liga[(df_player_stats_per90_liga['Pos'].str.contains(pos))& (df_player_stats_per90_liga['Age']<=ages)]
-            goals = dfposte['Non_Penalty_Goals']
-            xG = dfposte['npxG_Non_Penalty_xG']
-            playername = dfposte['PlayerName']
-
-            # plot
-            fig, ax = plt.subplots(figsize=(10,10))
-
-            # Scatter plot
-            sc2 = ax.scatter(xG, goals, color='grey')  # use a neutral color for points
-
-            # Calculate mean values
-            moyennegoals = goals.mean()
-            moyennexG = xG.mean()
-
-            x3_line = np.linspace(min(xG.min(), goals.min()), max(xG.max(), goals.max()), 100)
-            ax.plot(x3_line, x3_line, label='y = x', color='black')  # Line plot y=x
-
-            # Add mean lines
-            ax.axvline(x=moyennexG, color='red', linestyle='--')  # Vertical line at mean xG
-            ax.axhline(y=moyennegoals, color='blue', linestyle='--')  # Horizontal line at mean xGA
-
-            # Annotate each point
-            for i, txt in enumerate(playername):
-                ax.annotate(txt, (xG.iloc[i], goals.iloc[i]))
-
-            # Set labels and legend
-            ax.set_xlabel('xG')
-            ax.set_ylabel('Goals')
-            ax.set_title('Visualisation de la sur ou sous-performance des Joueurs ayant joué au moins 400min (But marque(per90) VS xG(per90))')
-            with col3:
-                st.pyplot(fig)
-
-            assists = dfposte['Assists']
-            xGA = dfposte['xAG_Exp_Assisted_Goals']
-            playername = dfposte['PlayerName']
-
-            # plot
-            fig, ax = plt.subplots(figsize=(10,10))
-
-            # Scatter plot
-            sc2 = ax.scatter(xGA, assists, color='grey')  # use a neutral color for points
-
-            # Calculate mean values
-            moyennegoals = assists.mean()
-            moyennexG = xGA.mean()
-
-            x3_line = np.linspace(min(xGA.min(), assists.min()), max(xGA.max(), assists.max()), 100)
-            ax.plot(x3_line, x3_line, label='y = x', color='black')  # Line plot y=x
-
-            # Add mean lines
-            ax.axvline(x=moyennexG, color='red', linestyle='--')  # Vertical line at mean xG
-            ax.axhline(y=moyennegoals, color='blue', linestyle='--')  # Horizontal line at mean xGA
-
-            # Annotate each point
-            for i, txt in enumerate(playername):
-                ax.annotate(txt, (xGA.iloc[i], assists.iloc[i]))
-
-            # Set labels and legend
-            ax.set_xlabel('xAG')
-            ax.set_ylabel('assists')
-            ax.set_title('Visualisation de la sur ou sous-performance des Joueurs ayant joué au moins 400min (Assists(per90) VS xAG(per90))')
-            with col4:
-                st.pyplot(fig)
 
     return True

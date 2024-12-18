@@ -72,7 +72,7 @@ def standardize_data(weights, df):
 
 
 def createPage():
-    st.write("Player Score")
+    st.title("Player Score /!\ BETA")
     weights = get_weights()
     League_to_show = st.selectbox(
         "Choose the league you want :",

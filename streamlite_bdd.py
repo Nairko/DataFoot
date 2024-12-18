@@ -22,7 +22,7 @@ from data_loader import load_data
 
 
 df_players_stats_ligue1,df_teams_ligue1,df_player_stats_per90_liga,df_teams_liga,df_big5 = load_data()
-v_menu=["Home", "GraphPlot📈", "PizzaPlot🕸️", "Scout🔎", "Score", "PassingMap"]
+v_menu=["Home", "GraphPlot📈", "PizzaPlot🕸️", "Scout🔎", "Score🥇", "PassingMap⚽️"]
 
 with st.sidebar:
     
@@ -54,10 +54,10 @@ if selected=="PizzaPlot🕸️":
 if selected=="Scout🔎":
     createScoutPage()
 
-if selected=="Score":
+if selected=="Score🥇":
     createScorePage()
 
-if selected=="PassingMap":
+if selected=="PassingMap⚽️":
     createPassingMapPage()
 
 

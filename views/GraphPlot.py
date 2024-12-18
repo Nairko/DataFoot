@@ -11,6 +11,13 @@ def split_position(pos):
             return positions[0], 'None'
         else:
             return positions[0], positions[1]
+
+def split_comp(compos):
+        league = compos.split('+')
+        if len(league) == 1:
+            return league[0], 'None'
+        else:
+            return league[0], league[1]
         
 df_players_stats_ligue1,df_teams_ligue1,df_player_stats_per90_liga,df_teams_liga,df_big5 = load_data()
 
@@ -47,14 +54,14 @@ def columns_to_display():
     "Passes_Penalty_Area_per_90",
     "Progressive_Passes_per_90",
     "Passes_Attempted_per_90",
-    "Through_Balls_per90",
+    "Through_Balls_per_90",
     "Passes_Cmp_per_90",
     "Shots_total_per90",
     "Shots_on_target_per90",
     "Goals_per_shot",
     "Goals_per_shot_on_target",
     "Npxg_per_shot",
-    "Percentage_of_Aerials_won",
+    "Percentage_of_Aerials_Won",
     "Fouls_Committed_per_90",
     "Interceptions_per_90",
     "Tackles_Won_per_90",
@@ -69,7 +76,7 @@ def columns_to_display():
 def plot_forward_analysis(df,ligue,pos,agemin,agemax,abcisse,ord):
     # Filtrage des données pour les attaquants
     if ligue != None:
-        dataligue=df[df['Comp'] == ligue]
+        dataligue=df[df['Actual_Comp'] == ligue]
         datapos = dataligue[dataligue['Main_Pos'] == pos]
     else:
         datapos = df[df['Main_Pos'] == pos]
@@ -80,7 +87,7 @@ def plot_forward_analysis(df,ligue,pos,agemin,agemax,abcisse,ord):
         data=filtered_data,
         x=abcisse,
         y=ord,
-        hue="Comp",
+        hue="Actual_Comp",
         s=150,
         alpha=0.6,
         ax=ax
@@ -114,9 +121,10 @@ def createPage():
     # Vérification et préparation des données
     if 'Main_Pos' not in df_big5.columns:
         df_big5[['Main_Pos', 'Secondary_Pos']] = df_big5['Pos'].apply(lambda x: pd.Series(split_position(x)))
-
+    if 'Actual_Comp' not in df_big5.columns:
+        df_big5[['Actual_Comp', 'Past_Comp']] = df_big5['Comp'].apply(lambda x: pd.Series(split_comp(x)))
     columns_display = columns_to_display()
-    Championnat = st.selectbox("Choose the comp to display (empty = all comp) :",df_big5['Comp'].unique(),index=None,placeholder="Let empty if you want all comp... else choose one")
+    Championnat = st.selectbox("Choose the comp to display (empty = all comp) :",df_big5['Actual_Comp'].unique(),index=None,placeholder="Let empty if you want all comp... else choose one")
 
     posB5 = st.selectbox("Choose the position of the players to display :",df_big5['Main_Pos'].unique())
 

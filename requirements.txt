@@ -7,3 +7,4 @@ mplsoccer
 mysql-connector-python
 scikit-learn
 streamlit-option-menu
+seaborn
