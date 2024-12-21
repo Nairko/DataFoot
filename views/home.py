@@ -41,11 +41,11 @@ def createPage():
     st.markdown("**Dont forget to give me feedback with the stars on the left or dm me on X : nathan_crgr**")
     st.markdown("**Here are the different menus:**")
     multi = """
-    **GraphPlot📈:** You will find a scatter plot representing players' performance based on certain statistics that you can select. The stats correspond to those of the domestic leagues in the 5 major championships(at least 630min played).
+    **GraphPlot📈:** You will find a scatter plot representing players' performance based on certain statistics that you can select. The stats correspond to those of the domestic leagues in the 5 major championships(at least 900min played).
 
     **PizzaPlot🕸️:** Displays percentile statistics in a radar chart. You can choose different stats to display as well as the player's role. Available only in 2 leagues (La Liga and Ligue 1).
 
-    **PercentileRank:** Discover the player's top percentile stats. Is he the best in the Big 5 major championships (at least 630min played) ?
+    **PercentileRank:** Discover the player's top percentile stats. Is he the best in the Big 5 major championships (at least 900min played) ?
 
     **Scout🔎:** Enter the name of the player you want to scout; it will provide you with their weaknesses and complementary players. Available only in 2 leagues (La Liga and Ligue 1).
 
