@@ -97,11 +97,11 @@ def PizzaColor(sorted_params,values,player,order_col):
     )
 
     # add credits
-    CREDIT_1 = "data: viz fbref"
-    CREDIT_2 = "inspired by: Nathan"
+    CREDIT_1 = "data: viz fbref created by Nathan"
+    CREDIT_2 = "X: nathan_crgr"
 
     fig.text(
-        0.99, 0.02, f"{CREDIT_1}\n{CREDIT_2}", size=9,
+        0.99, 0.02, f"{CREDIT_1}\n{CREDIT_2}", size=12,
         color="#F2F2F2",
         ha="right"
     )

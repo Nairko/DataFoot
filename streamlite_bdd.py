@@ -17,6 +17,8 @@ from views.Scout import createPage as createScoutPage
 from views.score import createPage as createScorePage
 from views.PassingMap import createPage as createPassingMapPage
 from views.GraphPlot import createPage as createPlotPage
+from views.percentile_rank import createPage as createPercentilePage
+
 from data_loader import load_data
 from datetime import datetime
 import time
@@ -45,7 +47,7 @@ def can_insert(delay=300):
     return False
 
 df_players_stats_ligue1,df_teams_ligue1,df_player_stats_per90_liga,df_teams_liga,df_big5 = load_data()
-v_menu=["Home", "GraphPlot📈", "PizzaPlot🕸️", "Scout🔎", "Score🥇", "PassingMap⚽️"]
+v_menu=["Home", "GraphPlot📈", "PizzaPlot🕸️","PercentileRank", "Scout🔎", "Score🥇", "PassingMap⚽️"]
 
 with st.sidebar:
     selected_menu = option_menu(
@@ -115,4 +117,6 @@ if selected_menu=="Score🥇":
 if selected_menu=="PassingMap⚽️":
     createPassingMapPage()
 
+if selected_menu=="PercentileRank":
+    createPercentilePage()
 

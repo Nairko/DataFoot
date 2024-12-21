@@ -107,7 +107,8 @@ def plot_forward_analysis(df,ligue,pos,agemin,agemax,abcisse,ord):
     # Titre et ajustements
     ax.set_title(f'Performance Analysis of {pos}', fontsize=15)
     plt.subplots_adjust(top=0.9)
-    plt.figtext(0.90, 0.07, 'created by Nairko with FBref data', ha='right', color='grey', fontsize=13)
+    plt.figtext(0.90, 0.07, 'created by Nathan with FBref data', ha='right', color='grey', fontsize=13)
+    plt.figtext(0.90, 0.05, 'X : @nathan.crgr', ha='right', color='grey', fontsize=13)
 
     # Retourner la figure
     return fig
@@ -124,17 +125,21 @@ def createPage():
     if 'Actual_Comp' not in df_big5.columns:
         df_big5[['Actual_Comp', 'Past_Comp']] = df_big5['Comp'].apply(lambda x: pd.Series(split_comp(x)))
     columns_display = columns_to_display()
-    Championnat = st.selectbox("Choose the comp to display (empty = all comp) :",df_big5['Actual_Comp'].unique(),index=None,placeholder="Let empty if you want all comp... else choose one")
+    with col1:
+        Championnat = st.selectbox("Choose the comp to display (empty = all comp) :",df_big5['Actual_Comp'].unique(),index=None,placeholder="Let empty if you want all comp... else choose one")
+    with col2:
+        posB5 = st.selectbox("Choose the position of the players to display :",df_big5['Main_Pos'].unique())
 
-    posB5 = st.selectbox("Choose the position of the players to display :",df_big5['Main_Pos'].unique())
+    col3, col4 = st.columns(2)
+    with col3:
+        abscisse = st.selectbox(
+        "Choose the abs axe to display",
+        columns_display,)
 
-    abscisse = st.selectbox(
-    "Choose the abs axe to display",
-    columns_display,)
-
-    ordonees= st.selectbox(
-    "Choose the ord axe to display",
-    columns_display,)
+    with col4:
+        ordonees= st.selectbox(
+        "Choose the ord axe to display",
+        columns_display,)
 
     start_age, end_age = st.select_slider(
     "Select a range of players' ages",

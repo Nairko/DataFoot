@@ -10,7 +10,13 @@ from mplsoccer import PyPizza, add_image, FontManager
 from urllib.request import urlopen
 
 df_players_stats_ligue1,df_teams_ligue1,df_player_stats_per90_liga,df_teams_liga,df_big5 = load_data()
+df_xg_permatch_ligue1 = df_teams_ligue1.copy()
+df_xg_permatch_liga = df_teams_liga.copy()
 
+df_xg_permatch_ligue1['xG_per_match']= df_xg_permatch_ligue1['xG']/df_xg_permatch_ligue1['MP']
+df_xg_permatch_ligue1['xGA_per_match']= df_xg_permatch_ligue1['xGA']/df_xg_permatch_ligue1['MP']
+df_xg_permatch_liga['xG_per_match']= df_xg_permatch_liga['xG']/df_xg_permatch_liga['MP']
+df_xg_permatch_liga['xGA_per_match']= df_xg_permatch_liga['xGA']/df_xg_permatch_liga['MP']
 def get_logo_path(squad_name,ligue_select):
     # Remplacez ce chemin par le chemin où vous stockez vos logos
     if ligue_select == 'Ligue1':
@@ -32,11 +38,14 @@ def plot_with_logos(x, y, names, ax,ligue_select):
 def createPage():
     st.write("""# Welcome to the hub of soccer data""")
     st.markdown("**The site is in BETA.**")
+    st.markdown("**Dont forget to give me feedback with the stars on the left or dm me on X : nathan_crgr**")
     st.markdown("**Here are the different menus:**")
     multi = """
-    **GraphPlot📈:** You will find a scatter plot representing players' performance based on certain statistics that you can select. The stats correspond to those of the domestic leagues in the 5 major championships.
+    **GraphPlot📈:** You will find a scatter plot representing players' performance based on certain statistics that you can select. The stats correspond to those of the domestic leagues in the 5 major championships(at least 630min played).
 
     **PizzaPlot🕸️:** Displays percentile statistics in a radar chart. You can choose different stats to display as well as the player's role. Available only in 2 leagues (La Liga and Ligue 1).
+
+    **PercentileRank:** Discover the player's top percentile stats. Is he the best in the Big 5 major championships (at least 630min played) ?
 
     **Scout🔎:** Enter the name of the player you want to scout; it will provide you with their weaknesses and complementary players. Available only in 2 leagues (La Liga and Ligue 1).
 
@@ -59,8 +68,8 @@ def createPage():
     if ligue_select == 'Ligue1':
         if graph_select == "GF & GA":
             #courbe xG vs xGA
-            x2 = df_teams_ligue1['xG']/df_teams_ligue1['MP'].iloc[0]
-            y2 = df_teams_ligue1['xGA']/df_teams_ligue1['MP'].iloc[0]
+            x2 = df_xg_permatch_ligue1['xG_per_match']
+            y2 = df_xg_permatch_ligue1['xGA_per_match']
             name = df_teams_ligue1['TeamName'] 
             # plot
             fig, ax = plt.subplots(figsize=(10,10))
@@ -113,8 +122,8 @@ def createPage():
     elif ligue_select == 'Liga':
         if graph_select == "GF & GA":
             #courbe xG vs xGA
-            x2 = df_teams_liga['xG']/df_teams_liga['MP'].iloc[0]
-            y2 = df_teams_liga['xGA']/df_teams_liga['MP'].iloc[0]
+            x2 = df_xg_permatch_liga['xG_per_match']
+            y2 = df_xg_permatch_liga['xGA_per_match']
             name = df_teams_liga['TeamName'] 
             # plot
             fig, ax = plt.subplots(figsize=(10,10))
