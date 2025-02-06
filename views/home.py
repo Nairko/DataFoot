@@ -37,7 +37,7 @@ def plot_with_logos(x, y, names, ax,ligue_select):
 
 def createPage():
     st.write("""# Welcome to the hub of soccer data""")
-    st.write("""#LAST DATA UPDATE: 4 FEBRUARY 2025""")
+    st.write("""# LAST DATA UPDATE: 4 FEBRUARY 2025""")
     st.markdown("**The site is in BETA.**")
     st.markdown("**Dont forget to give me feedback with the stars on the left or dm me on X : nathan_crgr**")
     st.markdown("**Here are the different menus:**")
