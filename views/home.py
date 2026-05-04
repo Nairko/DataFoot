@@ -5,9 +5,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.offsetbox import OffsetImage, AnnotationBbox
 import matplotlib.image as mpimg
-from PIL import Image
-from mplsoccer import PyPizza, add_image, FontManager
-from urllib.request import urlopen
 
 df_players_stats_ligue1,df_teams_ligue1,df_player_stats_per90_liga,df_teams_liga,df_big5 = load_data()
 df_xg_permatch_ligue1 = df_teams_ligue1.copy()

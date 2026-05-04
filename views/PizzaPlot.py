@@ -7,7 +7,6 @@ import matplotlib.image as mpimg
 from PIL import Image
 from mplsoccer import PyPizza, add_image, FontManager
 from urllib.request import urlopen
-import mysql.connector
 from data_loader import load_data
 
 
