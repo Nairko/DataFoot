@@ -46,7 +46,7 @@ def standardize_data(weights, df):
         df[list(all_scale_cols)] = scaler.fit_transform(df[list(all_scale_cols)])
 
     # Création d'une colonne pour l'indice de performance pour éviter les erreurs lors de l'accès aux colonnes manquantes
-    df['Performance Index'] = 0
+    df['Performance Index'] = 0.0
     
     # Application des poids par poste aux caractéristiques normalisées
     for pos, pos_weights in weights.items():
@@ -64,9 +64,6 @@ def standardize_data(weights, df):
         df['Performance Index'] = (6 * (df['Performance Index'] - global_min) / (global_max - global_min)+4)
     else:
         df['Performance Index'] = 10  # Cas où tous les indices sont identiques
-
-    st.write("Global min:", global_min)
-    st.write("Global max:", global_max)
 
     return df
 
