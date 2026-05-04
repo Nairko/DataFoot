@@ -38,6 +38,11 @@ def plot_with_logos(x, y, names, ax,ligue_select):
 def createPage():
     st.write("""# Welcome to the hub of soccer data""")
     st.write("""# LAST DATA UPDATE: 4 FEBRUARY 2025""")
+<<<<<<< HEAD
+=======
+    st.markdown("**The site is in BETA.**")
+    st.markdown("**Dont forget to give me feedback with the stars on the left or dm me on X : nathan_crgr**")
+>>>>>>> 2faa47442877f312e1b19c7e9cb5fa7c261b37d1
     st.markdown("**Here are the different menus:**")
     multi = """
     **GraphPlot📈:** You will find a scatter plot representing players' performance based on certain statistics that you can select. The stats correspond to those of the domestic leagues in the 5 major championships(at least 900min played).
