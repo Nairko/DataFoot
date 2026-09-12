@@ -15,6 +15,7 @@ from datafoot_mcp.complementary_tools import find_complementary_players as compl
 from datafoot_mcp.percentile_tools import get_player_percentiles as percentile_service
 from datafoot_mcp.player_tools import filter_players as filter_service
 from datafoot_mcp.player_tools import search_player as search_service
+from datafoot_mcp.ranking_tools import rank_players as ranking_service
 from datafoot_mcp.statistics_tools import compare_players as compare_service
 from datafoot_mcp.statistics_tools import get_player_stats as stats_service
 from datafoot_mcp.similar_tools import find_similar_players as similar_service
@@ -45,6 +46,20 @@ def compare_players(player_a: str, player_b: str, dataset: str = "Big5", statist
 def filter_players(dataset: str = "Liga", position: str | None = None, age_max: float | None = None, age_min: float | None = None, minutes_min: float | None = None, team: str | None = None, statistic: str | None = None, operator: str | None = None, value: float | None = None, max_results: int = 20) -> dict:
     """Filtrer les joueurs par championnat, poste, age, minutes, equipe ou statistique."""
     return filter_service(dataset, position, age_max, age_min, minutes_min, team, statistic, operator, value, max_results)
+
+
+@mcp.tool()
+def rank_players(
+    dataset: str = "Ligue1",
+    statistic: str = "Non_Penalty_Goals",
+    team: str | None = None,
+    position: str | None = None,
+    minutes_min: float | None = 400,
+    top_k: int = 10,
+    ascending: bool = False,
+) -> dict:
+    """Classer les joueurs par statistique, équipe, poste et minutes."""
+    return ranking_service(dataset, statistic, team, position, minutes_min, top_k, ascending)
 
 
 @mcp.tool()
