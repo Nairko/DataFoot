@@ -7,5 +7,5 @@ mplsoccer
 scikit-learn
 streamlit-option-menu
 seaborn
-mcp[cli]>=2.0.0
+mcp==2.2.0
 openai>=1.0.0
