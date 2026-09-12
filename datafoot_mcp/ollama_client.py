@@ -3,6 +3,7 @@
 import asyncio
 import json
 import os
+import sys
 import re
 import unicodedata
 from pathlib import Path
@@ -75,7 +76,7 @@ def _format_complementary_result(result: Any) -> str:
 
 def _server_parameters() -> StdioServerParameters:
     return StdioServerParameters(
-        command=os.environ.get("DATAFOOT_PYTHON", "python"),
+        command=os.environ.get("DATAFOOT_PYTHON", sys.executable),
         args=[str(DEFAULT_SERVER)],
         cwd=str(PROJECT_ROOT),
         env=dict(os.environ),

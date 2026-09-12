@@ -3,6 +3,7 @@
 import asyncio
 import json
 import os
+import sys
 import unicodedata
 from pathlib import Path
 from typing import Any
@@ -51,7 +52,10 @@ def _result_text(result: Any) -> str:
 
 def _server_parameters() -> StdioServerParameters:
     return StdioServerParameters(
-        command=os.environ.get("DATAFOOT_PYTHON", "python"),
+        # Streamlit Cloud installe les dépendances dans son environnement
+        # courant. Utiliser sys.executable évite de lancer le MCP avec un
+        # autre Python qui ne contiendrait pas le paquet mcp.
+        command=os.environ.get("DATAFOOT_PYTHON", sys.executable),
         args=[str(DEFAULT_SERVER)],
         cwd=str(PROJECT_ROOT),
         env=dict(os.environ),
