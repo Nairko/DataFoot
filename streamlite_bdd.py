@@ -19,6 +19,7 @@ from views.score import createPage as createScorePage
 from views.PassingMap import createPage as createPassingMapPage
 from views.GraphPlot import createPage as createPlotPage
 from views.percentile_rank import createPage as createPercentilePage
+from views.DataFootAgent import createPage as createDataFootAgentPage
 
 from data_loader import load_data
 
@@ -32,7 +33,8 @@ v_menu = [
     "PercentileRank",
     "Scout🔎",
     "Score🥇",
-    "PassingMap⚽️"
+    "PassingMap⚽️",
+    "DataFoot Agent 🤖",
 ]
 
 with st.sidebar:
@@ -73,3 +75,6 @@ if selected_menu == "PassingMap⚽️":
 
 if selected_menu == "PercentileRank":
     createPercentilePage()
+
+if selected_menu == "DataFoot Agent 🤖":
+    createDataFootAgentPage()
